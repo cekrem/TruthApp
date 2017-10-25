@@ -21,12 +21,9 @@ let colors = [
 
 makeList()
 
+// Make list from data, add to list observable
 function makeList() {
   console.log('making list');
-  if (list.value) {
-    doingShuffle.value = true;
-    setTimeout(() => doingShuffle.value = false, 1000);
-  }
 
   // If data is shorter than limit, decrease limit
   limit.value = Math.min(limit.value, data.length);
@@ -44,6 +41,13 @@ function makeList() {
   list.replaceAll(array);
 
   loaded.value = true;
+}
+
+// Trigger list shuffle with timeout
+function shuffleList() {
+  doingShuffle.value = true;
+  makeList();
+  setTimeout(() => doingShuffle.value = false, 1000);
 }
 
 // Pure function to shuffle array
@@ -89,7 +93,7 @@ module.exports = {
   offset: offset,
   activeIndex: activeIndex,
   onActivated: onActivated,
-  makeList: makeList,
+  shuffleList: shuffleList,
   loaded: loaded,
   doingShuffle: doingShuffle
 };

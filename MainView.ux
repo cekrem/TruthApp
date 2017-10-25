@@ -31,6 +31,7 @@
 			<Text Font="Lato" TextWrapping="Wrap" FontSize="20" Margin="50, 0, 50, 0" Alignment="Center" Anchor="50%, 50%" TextAlignment="Center" Color="#fff">
 				<WhileTrue Value="{doingShuffle}">
 					<Scale Factor="0.9" Easing="CubicInOut" Duration="1" />
+					<Change truthBlur.Radius="3" Duration="1" />
 				</WhileTrue>
 				{text}
 			</Text>
@@ -41,11 +42,15 @@
 			<Text Font="Lato" TextWrapping="Wrap" FontSize="40" Padding="40, 0, 40, 0" Alignment="Center" Anchor="50%, 50%" TextAlignment="Center" Color="#fff">
 				TODO: Reference here?
 			</Text>
-			<Button Height="50" Tapped="{makeList}" Color="#fff" Alignment="Bottom" Text="More" />
+			<Button Height="50" Tapped="{shuffleList}" Color="#222" Alignment="Bottom">
+				<Text Font="Lato" Alignment="Center" Color="#fff">
+					More
+				</Text>
+			</Button>
 		</Rectangle>
 	</Page>
 
-	<PageControl ux:Name="truthSlider" Opacity="0" Transition="None" AllowedSwipeDirections="Backward" ActiveIndex="{activeIndex}">
+	<PageControl ux:Name="truthSlider" Opacity="0" Transition="None" ActiveIndex="{activeIndex}">
 		<WhileTrue Value="{loaded}">
 			<Change Easing="CubicInOut" truthSlider.Opacity="1" Duration="1.5" />
 		</WhileTrue>

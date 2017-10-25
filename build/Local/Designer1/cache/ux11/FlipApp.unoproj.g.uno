@@ -7,6 +7,14 @@ sealed class FlipApp_FuseControlsTextControl_Value_Property: Uno.UX.Property<str
     public override void Set(global::Uno.UX.PropertyObject obj, string v, global::Uno.UX.IPropertyListener origin) { ((Fuse.Controls.TextControl)obj).SetValue(v, origin); }
     public override bool SupportsOriginSetter { get { return true; } }
 }
+sealed class FlipApp_FuseEffectsBlur_Radius_Property: Uno.UX.Property<float>
+{
+    [Uno.WeakReference] readonly Fuse.Effects.Blur _obj;
+    public FlipApp_FuseEffectsBlur_Radius_Property(Fuse.Effects.Blur obj, global::Uno.UX.Selector name) : base(name) { _obj = obj; }
+    public override global::Uno.UX.PropertyObject Object { get { return _obj; } }
+    public override float Get(global::Uno.UX.PropertyObject obj) { return ((Fuse.Effects.Blur)obj).Radius; }
+    public override void Set(global::Uno.UX.PropertyObject obj, float v, global::Uno.UX.IPropertyListener origin) { ((Fuse.Effects.Blur)obj).Radius = v; }
+}
 sealed class FlipApp_FuseElementsElement_Opacity_Property: Uno.UX.Property<float>
 {
     [Uno.WeakReference] readonly Fuse.Elements.Element _obj;
