@@ -18,7 +18,7 @@
 		</ExitingAnimation>
 
 		<!-- Truth text layer -->
-		<Rectangle Color="{hexValue}">
+		<Rectangle Color="{color}">
 		    <SwipeGesture ux:Name="swipe" Direction="Down" Length="200" Type="Simple" />
 			<WhileSwipeActive Source="swipe">
 				<Move Y="0.8" RelativeTo="Size" Easing="CubicOut" Duration="1" />

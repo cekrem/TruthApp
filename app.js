@@ -8,6 +8,16 @@ let doingShuffle = Observable(false);
 let loaded = Observable(false);
 
 let data = require('mock');
+let colors = [
+  '#9C27B0',
+  '#3F51B5',
+  '#00BCD4',
+  '#03A9F4',
+  '#2196F3',
+  '#673AB7',
+  '#009688',
+  '#4CAF50'
+]
 
 makeList()
 
@@ -15,15 +25,18 @@ function makeList() {
   console.log('making list');
   if (list.value) {
     doingShuffle.value = true;
-    setTimeout(()=> doingShuffle.value = false, 1000);
+    setTimeout(() => doingShuffle.value = false, 1000);
   }
 
   // If data is shorter than limit, decrease limit
   limit.value = Math.min(limit.value, data.length);
 
-  // Create new, doingShuffled array from data (leave data intact)
-  let array = doingShuffleArray(data);
-  
+  // Create new, shuffled array from data (leave data intact)
+  let array = shuffleArray(data);
+  colors = shuffleArray(colors);
+  array = colorizeArray(array);
+  console.dir(array);
+
   // Clear to avoid back scroll animation
   // list.clear();
 
@@ -34,13 +47,30 @@ function makeList() {
 }
 
 // Pure function to shuffle array
-function doingShuffleArray(oldArray) {
+function shuffleArray(oldArray) {
   let array = JSON.parse(JSON.stringify(oldArray));
   for (let i = array.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
+}
+
+// Pure function to add colors to array
+function colorizeArray(oldArray) {
+  return oldArray.map((item, index) => {
+    item.color = getColor(index);
+    return item;
+  })
+}
+
+// Return incrementing colors from color array
+function getColor(index) {
+  if (index >= colors.length) {
+    return getColor(index - colors.length);
+  }
+
+  return colors[index];
 }
 
 function onActivated(sender) {
