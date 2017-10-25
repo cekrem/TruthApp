@@ -1,0 +1,58 @@
+<App Background="#222">
+	<Font ux:Global="Lato" File="Lato-Regular.ttf" />
+
+    <JavaScript File="app.js" />
+	<Page ux:Class="Truth" >
+		<Blur ux:Name="truthBlur" Radius="0" />
+		
+		<!-- Custom animation, in combination with 'Transition="None"' -->
+		<EnteringAnimation>
+			<Move X="-1" RelativeTo="ParentSize" />
+			<Change truthBlur.Radius="3" />
+		</EnteringAnimation>
+		<ExitingAnimation>
+			<!-- <Scale Factor="0.5" /> -->
+
+			<Change this.Opacity="0.7" />
+			<Change truthBlur.Radius="3" />
+		</ExitingAnimation>
+
+		<!-- Truth text layer -->
+		<Rectangle Color="{hexValue}">
+		    <SwipeGesture ux:Name="swipe" Direction="Down" Length="200" Type="Simple" />
+			<WhileSwipeActive Source="swipe">
+				<Move Y="0.8" RelativeTo="Size" Easing="CubicOut" Duration="1" />
+			</WhileSwipeActive>
+
+			<WhileTrue Value="{activeIndex > (limit - 2)}">
+				<Move Y="-50" Easing="CubicIn" Duration="0.6" />
+			</WhileTrue>
+
+			<Text Font="Lato" TextWrapping="Wrap" FontSize="20" Margin="50, 0, 50, 0" Alignment="Center" Anchor="50%, 50%" TextAlignment="Center" Color="#fff">
+				<WhileTrue Value="{doingShuffle}">
+					<Scale Factor="0.9" Easing="CubicInOut" Duration="1" />
+				</WhileTrue>
+				{text}
+			</Text>
+		</Rectangle>
+
+		<!-- Reference (verse) layer -->
+		<Rectangle Color="#222">
+			<Text Font="Lato" TextWrapping="Wrap" FontSize="40" Padding="40, 0, 40, 0" Alignment="Center" Anchor="50%, 50%" TextAlignment="Center" Color="#fff">
+				TODO: Reference here?
+			</Text>
+			<Button Height="50" Tapped="{makeList}" Color="#fff" Alignment="Bottom" Text="More" />
+		</Rectangle>
+	</Page>
+
+	<PageControl ux:Name="truthSlider" Opacity="0" Transition="None" AllowedSwipeDirections="Backward" ActiveIndex="{activeIndex}">
+		<WhileTrue Value="{loaded}">
+			<Change Easing="CubicInOut" truthSlider.Opacity="1" Duration="1.5" />
+		</WhileTrue>
+
+        <Each Items="{list}" Limit="{limit}" Offset="{offset}">
+			<Truth Activated="{onActivated}" />
+        </Each>
+
+	</PageControl>
+</App>
